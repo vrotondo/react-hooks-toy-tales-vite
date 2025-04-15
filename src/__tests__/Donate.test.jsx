@@ -6,8 +6,8 @@ import '@testing-library/jest-dom';
 describe("Deleting a Toy", () => {
     it("removes the toy when donate button is clicked", async () => {
         global.setFetchResponse(global.baseToys)
-        const {findByText, getAllByText } = render(<App />);
-    
+        const { findByText, getAllByText } = render(<App />);
+
         const woody = await findByText("Woody")
         expect(woody).toBeInTheDocument();
 
@@ -15,8 +15,7 @@ describe("Deleting a Toy", () => {
         fireEvent.click(donateButton);
 
         const deletedWoody = await findByText("Woody")
-    
+
         expect(deletedWoody).not.toBeInTheDocument()
     });
 });
-  
