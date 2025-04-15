@@ -34,6 +34,21 @@ function App() {
     });
   }
 
+  // Like a toy
+  function handleLikeToy(id, currentLikes) {
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ likes: currentLikes + 1 }),
+    })
+      .then((response) => response.json())
+      .then((updatedToy) => {
+        setToys((prevToys) =>
+          prevToys.map((toy) => (toy.id === id ? updatedToy : toy))
+        );
+      });
+  }
+
   return (
     <div>
       <Header />
@@ -43,7 +58,11 @@ function App() {
           {showForm ? "Close Form" : "Add a Toy"}
         </button>
       </div>
-      <ToyContainer toys={toys} onDeleteToy={handleDeleteToy} />
+      <ToyContainer
+        toys={toys}
+        onDeleteToy={handleDeleteToy}
+        onLikeToy={handleLikeToy}
+      />
     </div>
   );
 }
