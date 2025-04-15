@@ -25,6 +25,15 @@ function App() {
       .then((createdToy) => setToys((prevToys) => [...prevToys, createdToy]));
   }
 
+  // Delete a toy
+  function handleDeleteToy(id) {
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      setToys((prevToys) => prevToys.filter((toy) => toy.id !== id));
+    });
+  }
+
   return (
     <div>
       <Header />
@@ -34,7 +43,7 @@ function App() {
           {showForm ? "Close Form" : "Add a Toy"}
         </button>
       </div>
-      <ToyContainer toys={toys} />
+      <ToyContainer toys={toys} onDeleteToy={handleDeleteToy} />
     </div>
   );
 }
